@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Answers.Console/Answers.Console.csproj" />
+    <Project Path="src/Answers.WinForms/Answers.WinForms.csproj" />
+    <Project Path="src/Answers.Wpf/Answers.Wpf.csproj" />
+  </Folder>
+</Solution>

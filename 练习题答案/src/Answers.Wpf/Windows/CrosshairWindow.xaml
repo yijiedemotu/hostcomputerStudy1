@@ -1,0 +1,183 @@
+<Window x:Class="Answers.Wpf.Windows.CrosshairWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Answers.Wpf.Controls"
+        Title="第 05 章练习 2 · 趋势十字光标"
+        Width="1260" Height="940" MinWidth="1060" MinHeight="780"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgBrush}"
+        Foreground="{DynamicResource TextBrush}"
+        FontFamily="{StaticResource AppFont}"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display">
+
+    <Window.Resources>
+        <Style x:Key="StatCard" TargetType="Border" BasedOn="{StaticResource CardBorder}">
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1"
+                Padding="28,18">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="第 05 章练习 2 · 趋势十字光标" Style="{StaticResource PageTitle}"
+                               Foreground="{DynamicResource TextBrush}"/>
+                    <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0"
+                               Text="FrameworkElement + OnRender 自绘曲线；鼠标 X 坐标换算成最近采样点，显示时间与数值。" />
+                </StackPanel>
+                <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Background="{DynamicResource AccentSoftBrush}" CornerRadius="10" Padding="11,5">
+                    <TextBlock Text="OnRender · DependencyProperty" FontSize="10.5" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="28,22,28,24">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Style="{StaticResource StatCard}">
+                        <StackPanel>
+                            <TextBlock Text="当前温度" Style="{StaticResource MutedText}" FontSize="11"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <TextBlock Text="{Binding CurrentText}" Style="{StaticResource MetricValue}"
+                                           Foreground="{DynamicResource AccentBrush}"/>
+                                <TextBlock Text="℃" VerticalAlignment="Bottom" Margin="5,0,0,4"
+                                           FontSize="12" Foreground="{DynamicResource MutedBrush}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Style="{StaticResource StatCard}">
+                        <StackPanel>
+                            <TextBlock Text="最新采样时间" Style="{StaticResource MutedText}" FontSize="11"/>
+                            <TextBlock Text="{Binding TimeText}" FontFamily="Consolas" FontSize="17"
+                                       FontWeight="SemiBold" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource StatCard}">
+                        <StackPanel>
+                            <TextBlock Text="缓存点数" Style="{StaticResource MutedText}" FontSize="11"/>
+                            <TextBlock Text="{Binding SampleCountText}" FontFamily="Segoe UI" FontSize="19"
+                                       FontWeight="SemiBold" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="3" Style="{StaticResource StatCard}" Margin="0">
+                        <StackPanel>
+                            <TextBlock Text="采集状态" Style="{StaticResource MutedText}" FontSize="11"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Ellipse Width="7" Height="7" VerticalAlignment="Center" Margin="0,0,7,0">
+                                    <Ellipse.Style>
+                                        <Style TargetType="Ellipse">
+                                            <Setter Property="Fill" Value="{DynamicResource PlcBrush}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsRunning}" Value="False">
+                                                    <Setter Property="Fill" Value="{DynamicResource WarnBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Ellipse.Style>
+                                </Ellipse>
+                                <TextBlock Text="{Binding RunStateText}" FontSize="13" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Border Grid.Row="1" Style="{StaticResource CardBorder}" Padding="18" Margin="0,16,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="1# 炉膛温度趋势" Style="{StaticResource SectionTitle}"
+                                           Foreground="{DynamicResource TextBrush}"/>
+                                <TextBlock Text="每 500 ms 追加一个采样点，缓存上限 120 点；曲线与光标均为 OnRender 自绘"
+                                           Style="{StaticResource MutedText}" Margin="0,3,0,0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <Button Content="{Binding ToggleText}" Command="{Binding ToggleCommand}"
+                                        Style="{StaticResource GhostButton}" Margin="0,0,8,0"/>
+                                <Button Content="清空数据" Command="{Binding ClearCommand}"
+                                        Style="{StaticResource GhostButton}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Border Grid.Row="1" Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1" CornerRadius="10" Margin="0,14,0,0" ClipToBounds="True">
+                            <controls:CrosshairTrendChart Points="{Binding Points}" Height="392"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="0,16,0,0">
+                    <StackPanel>
+                        <TextBlock Text="实现要点" Style="{StaticResource SectionTitle}"
+                                   Foreground="{DynamicResource TextBrush}"/>
+
+                        <Grid Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="•" Foreground="{DynamicResource AccentBrush}" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1" Style="{StaticResource MutedText}"
+                                       Text="CrosshairTrendChart 继承 FrameworkElement，在 OnRender 里画网格、区域、曲线和提示框，没有使用第三方图表库。"/>
+                        </Grid>
+                        <Grid Margin="0,7,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="•" Foreground="{DynamicResource AccentBrush}" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1" Style="{StaticResource MutedText}"
+                                       Text="鼠标 X 坐标先换算成索引，再取“最近的数据点”，因此提示框始终吸附在真实采样点上，不会指向两点之间的空白。"/>
+                        </Grid>
+                        <Grid Margin="0,7,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="•" Foreground="{DynamicResource AccentBrush}" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1" Style="{StaticResource MutedText}"
+                                       Text="Points 是依赖属性，注册了 AffectsRender；集合变化时订阅 CollectionChanged，调用 InvalidateVisual() 触发重绘。"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource MutedText}"
+                   Margin="28,0,28,14"
+                   Text="设计器提示：CrosshairTrendChart 在设计时显示为空面板，运行后由 OnRender 画出曲线；Points 绑定的是 ViewModel 的 ObservableCollection。"/>
+    </Grid>
+</Window>

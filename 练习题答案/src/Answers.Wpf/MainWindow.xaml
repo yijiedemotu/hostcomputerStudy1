@@ -1,0 +1,197 @@
+<Window x:Class="Answers.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WPF 练习答案 · 原生窗口"
+        Width="1180" Height="800" MinWidth="980" MinHeight="680"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BgBrush}"
+        Foreground="{DynamicResource TextBrush}"
+        FontFamily="{StaticResource AppFont}"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display">
+
+    <Window.Resources>
+        <!-- 首页的练习卡片：用一个带边框的 Button 做“可点击的卡片”。 -->
+        <Style x:Key="LauncherCard" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="22"/>
+            <Setter Property="Margin" Value="7"/>
+            <Setter Property="MinHeight" Value="150"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="14"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.82"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="132"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+
+        <!-- 顶部说明 -->
+        <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1"
+                Padding="34,22">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="WPF 原生窗口练习" Style="{StaticResource PageTitle}"
+                               Foreground="{DynamicResource TextBrush}"/>
+                    <TextBlock Text="每道题一个独立的 Window.xaml，完整布局写在 XAML 里，设计器打开即可看到真实界面。"
+                               Style="{StaticResource MutedText}" Margin="0,8,0,0"/>
+                </StackPanel>
+                <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Background="{DynamicResource AccentSoftBrush}" CornerRadius="10" Padding="12,5">
+                    <TextBlock Text="第 05 章 · 5 个练习" FontSize="11" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- 练习入口：2 列 × 3 行，最后一个是使用说明 -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <UniformGrid Columns="2" Margin="20">
+                <Button Style="{StaticResource LauncherCard}" Click="OpenAlarmSound_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="01" FontFamily="Consolas" FontSize="15" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,3,0,0"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="报警声音" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Text="DispatcherTimer · SystemSounds" FontSize="10.5"
+                                       Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="定时刷新温度与活动报警；View 负责播放系统提示音，VM 只管数据和规则。"
+                                       Style="{StaticResource MutedText}" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource LauncherCard}" Click="OpenCrosshair_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="02" FontFamily="Consolas" FontSize="15" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,3,0,0"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="趋势十字光标" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Text="FrameworkElement · OnRender" FontSize="10.5"
+                                       Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="自绘曲线和网格，鼠标移动时反算最近数据点，显示时间与数值提示框。"
+                                       Style="{StaticResource MutedText}" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource LauncherCard}" Click="OpenDeviceCards_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="03" FontFamily="Consolas" FontSize="15" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,3,0,0"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="设备卡片" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Text="DataTemplateSelector" FontSize="10.5"
+                                       Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="PLC、电表、变频器共用一组数据，按对象类型挑选完全不同的卡片模板。"
+                                       Style="{StaticResource MutedText}" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource LauncherCard}" Click="OpenTheme_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="04" FontFamily="Consolas" FontSize="15" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,3,0,0"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="日夜主题" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Text="ResourceDictionary · DynamicResource" FontSize="10.5"
+                                       Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="颜色全部抽到主题字典；运行时替换字典即可整窗换肤，控件不用重建。"
+                                       Style="{StaticResource MutedText}" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource LauncherCard}" Click="OpenAlarmList_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="05" FontFamily="Consolas" FontSize="15" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,3,0,0"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="报警排序筛选" FontSize="16" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Text="CollectionViewSource · DataGrid" FontSize="10.5"
+                                       Foreground="{DynamicResource MutedBrush}" Margin="0,4,0,0"/>
+                            <TextBlock Text="ICollectionView 在原始集合之上做筛选和排序，DataGrid 只负责显示视图。"
+                                       Style="{StaticResource MutedText}" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Button>
+
+                <Border Background="{DynamicResource SurfaceAltBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                        CornerRadius="14" Padding="22" Margin="7" MinHeight="150">
+                    <StackPanel>
+                        <TextBlock Text="怎样用设计器看窗口" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextBrush}"/>
+                        <TextBlock Style="{StaticResource MutedText}" Margin="0,9,0,0"
+                                   Text="在解决方案资源管理器里双击任意 .xaml 文件，Visual Studio / Rider 会打开设计视图；按 F7 可在 XAML 与后台代码之间切换。"/>
+                        <TextBlock Style="{StaticResource MutedText}" Margin="0,6,0,0"
+                                   Text="窗口的尺寸、间距、颜色、绑定都写在 XAML 里，因此设计器看到的就是运行时的真实布局。"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource MutedText}"
+                   Margin="34,0,34,0" VerticalAlignment="Center"
+                   Text="设计器提示：5 个窗口都在 Windows 文件夹；公共颜色在 Themes 文件夹；数据逻辑在 ViewModels 文件夹。"/>
+    </Grid>
+</Window>
