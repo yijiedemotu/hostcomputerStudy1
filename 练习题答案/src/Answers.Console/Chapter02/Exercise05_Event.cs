@@ -19,7 +19,7 @@ internal static class Exercise05_Event
         var sensor = new TemperatureSensor();
 
         // 定义“订阅者要执行的动作”。
-        // EventHandler<T> 是 .NET 内置的委托类型，签名固定为 (发送者, 事件参数)。
+        // EventHandler<T> 是 .NET 内置的   委托类型    ，签名固定为 (发送者, 事件参数)。
         // 这里的 (_, e) 中，下划线表示“这个参数我不用”，e 里装着新的温度值。
         // => 是 Lambda 表达式，可以理解成“一个没有名字的小方法”。
         EventHandler<TemperatureChangedEventArgs> handler = (_, e) =>
@@ -55,7 +55,7 @@ internal static class Exercise05_Event
     }
 
     /// <summary>
-    /// 事件参数：把“新温度值”从发布者传给订阅者。
+    /// 事件参数：把“新温度值”从发布者传给订阅者。`TemperatureChangedEventArgs`：**事件参数，承载业务数据**
     /// 按 .NET 惯例继承 EventArgs。
     /// </summary>
     private sealed class TemperatureChangedEventArgs(double newValue) : EventArgs

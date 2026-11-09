@@ -65,4 +65,34 @@ public partial class MainForm : Form
     {
         throw new System.NotImplementedException();
     }
+
+    private void titleLabel_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void subtitleLabel_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void footerLabel_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void rootLayout_Paint(object sender, PaintEventArgs e)
+    {
+
+    }
+
+    private void headerPanel_Paint(object sender, PaintEventArgs e)
+    {
+
+    }
+
+    private void badgeLabel_Click(object sender, EventArgs e)
+    {
+
+    }
 }

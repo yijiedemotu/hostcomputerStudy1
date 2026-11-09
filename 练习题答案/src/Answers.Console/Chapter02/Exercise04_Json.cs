@@ -23,6 +23,7 @@ internal static class Exercise04_Json
 
         // 创建一个配置对象，并给属性赋初值。
         // 注意 HighLimit 的类型是 double?：问号表示“可空”，不填就是 null（没有报警上限）。
+        // 现场原始值乘以 0.1 才是工程值
         var config = new PointConfig
         {
             Name = "1#炉 炉膛温度",

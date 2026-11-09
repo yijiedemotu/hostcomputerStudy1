@@ -25,19 +25,19 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
-        rootLayout = new System.Windows.Forms.TableLayoutPanel();
-        headerPanel = new System.Windows.Forms.Panel();
-        badgeLabel = new System.Windows.Forms.Label();
-        subtitleLabel = new System.Windows.Forms.Label();
-        titleLabel = new System.Windows.Forms.Label();
-        cardsPanel = new System.Windows.Forms.TableLayoutPanel();
-        btnFirstTask = new System.Windows.Forms.Button();
-        btnSendHistory = new System.Windows.Forms.Button();
-        btnAlarmFilter = new System.Windows.Forms.Button();
-        btnTrendHover = new System.Windows.Forms.Button();
-        btnVirtualGrid = new System.Windows.Forms.Button();
-        btnTray = new System.Windows.Forms.Button();
-        footerLabel = new System.Windows.Forms.Label();
+        rootLayout = new TableLayoutPanel();
+        headerPanel = new Panel();
+        badgeLabel = new Label();
+        subtitleLabel = new Label();
+        titleLabel = new Label();
+        cardsPanel = new TableLayoutPanel();
+        btnFirstTask = new Button();
+        btnSendHistory = new Button();
+        btnAlarmFilter = new Button();
+        btnTrendHover = new Button();
+        btnVirtualGrid = new Button();
+        btnTray = new Button();
+        footerLabel = new Label();
         rootLayout.SuspendLayout();
         headerPanel.SuspendLayout();
         cardsPanel.SuspendLayout();
@@ -45,241 +45,247 @@ partial class MainForm
         // 
         // rootLayout
         // 
-        rootLayout.BackColor = System.Drawing.Color.FromArgb(((int)((byte)244)), ((int)((byte)246)), ((int)((byte)250)));
+        rootLayout.BackColor = Color.FromArgb(244, 246, 250);
         rootLayout.ColumnCount = 1;
-        rootLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+        rootLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
         rootLayout.Controls.Add(headerPanel, 0, 0);
         rootLayout.Controls.Add(cardsPanel, 0, 1);
         rootLayout.Controls.Add(footerLabel, 0, 2);
-        rootLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-        rootLayout.Location = new System.Drawing.Point(0, 0);
-        rootLayout.Margin = new System.Windows.Forms.Padding(0);
+        rootLayout.Dock = DockStyle.Fill;
+        rootLayout.Location = new Point(0, 0);
+        rootLayout.Margin = new Padding(0, 0, 0, 23);
         rootLayout.Name = "rootLayout";
         rootLayout.RowCount = 3;
-        rootLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-        rootLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-        rootLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-        rootLayout.Size = new System.Drawing.Size(514, 513);
+        rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 77F));
+        rootLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        rootLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 62F));
+        rootLayout.Size = new Size(713, 493);
         rootLayout.TabIndex = 0;
+        rootLayout.Paint += rootLayout_Paint;
         // 
         // headerPanel
         // 
-        headerPanel.BackColor = System.Drawing.Color.White;
+        headerPanel.BackColor = Color.White;
         headerPanel.Controls.Add(badgeLabel);
         headerPanel.Controls.Add(subtitleLabel);
         headerPanel.Controls.Add(titleLabel);
-        headerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-        headerPanel.Location = new System.Drawing.Point(0, 0);
-        headerPanel.Margin = new System.Windows.Forms.Padding(0);
+        headerPanel.Dock = DockStyle.Fill;
+        headerPanel.Location = new Point(0, 0);
+        headerPanel.Margin = new Padding(0);
         headerPanel.Name = "headerPanel";
-        headerPanel.Size = new System.Drawing.Size(514, 50);
+        headerPanel.Size = new Size(713, 77);
         headerPanel.TabIndex = 0;
+        headerPanel.Paint += headerPanel_Paint;
         // 
         // badgeLabel
         // 
-        badgeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
-        badgeLabel.BackColor = System.Drawing.Color.FromArgb(((int)((byte)230)), ((int)((byte)242)), ((int)((byte)252)));
-        badgeLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 4.2222223F, System.Drawing.FontStyle.Bold);
-        badgeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)0)), ((int)((byte)95)), ((int)((byte)170)));
-        badgeLabel.Location = new System.Drawing.Point(441, 12);
-        badgeLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+        badgeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        badgeLabel.BackColor = Color.FromArgb(230, 242, 252);
+        badgeLabel.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+        badgeLabel.ForeColor = Color.FromArgb(0, 95, 170);
+        badgeLabel.Location = new Point(595, 4);
+        badgeLabel.Margin = new Padding(0, 0, 0, 0);
         badgeLabel.Name = "badgeLabel";
-        badgeLabel.Size = new System.Drawing.Size(62, 12);
+        badgeLabel.Size = new Size(89, 30);
         badgeLabel.TabIndex = 2;
         badgeLabel.Text = "第 01 / 04 章 · 6 个练习";
-        badgeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+        badgeLabel.TextAlign = ContentAlignment.MiddleCenter;
+        badgeLabel.Click += badgeLabel_Click;
         // 
         // subtitleLabel
         // 
         subtitleLabel.AutoSize = true;
-        subtitleLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 4.4444447F);
-        subtitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)100)), ((int)((byte)116)), ((int)((byte)139)));
-        subtitleLabel.Location = new System.Drawing.Point(11, 28);
-        subtitleLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+        subtitleLabel.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        subtitleLabel.ForeColor = Color.FromArgb(100, 116, 139);
+        subtitleLabel.Location = new Point(12, 34);
+        subtitleLabel.Margin = new Padding(0, 0, 0, 0);
         subtitleLabel.Name = "subtitleLabel";
-        subtitleLabel.Size = new System.Drawing.Size(339, 14);
+        subtitleLabel.Size = new Size(672, 24);
         subtitleLabel.TabIndex = 1;
         subtitleLabel.Text = "每道题一个独立 Form，布局全部写在 Designer.cs 中，设计器可直接查看和修改。";
+        subtitleLabel.Click += subtitleLabel_Click;
         // 
         // titleLabel
         // 
         titleLabel.AutoSize = true;
-        titleLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.777779F, System.Drawing.FontStyle.Bold);
-        titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        titleLabel.Location = new System.Drawing.Point(10, 10);
-        titleLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+        titleLabel.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+        titleLabel.ForeColor = Color.FromArgb(31, 41, 55);
+        titleLabel.Location = new Point(9, 9);
+        titleLabel.Margin = new Padding(0, 0, 0, 0);
         titleLabel.Name = "titleLabel";
-        titleLabel.Size = new System.Drawing.Size(241, 27);
+        titleLabel.Size = new Size(218, 25);
         titleLabel.TabIndex = 0;
         titleLabel.Text = "WinForms 原生窗体练习";
+        titleLabel.Click += titleLabel_Click;
         // 
         // cardsPanel
         // 
-        cardsPanel.BackColor = System.Drawing.Color.FromArgb(((int)((byte)244)), ((int)((byte)246)), ((int)((byte)250)));
+        cardsPanel.BackColor = Color.FromArgb(244, 246, 250);
         cardsPanel.ColumnCount = 2;
-        cardsPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-        cardsPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+        cardsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44.8586121F));
+        cardsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.1413879F));
         cardsPanel.Controls.Add(btnFirstTask, 0, 0);
         cardsPanel.Controls.Add(btnSendHistory, 1, 0);
         cardsPanel.Controls.Add(btnAlarmFilter, 0, 1);
         cardsPanel.Controls.Add(btnTrendHover, 1, 1);
         cardsPanel.Controls.Add(btnVirtualGrid, 0, 2);
         cardsPanel.Controls.Add(btnTray, 1, 2);
-        cardsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-        cardsPanel.Location = new System.Drawing.Point(8, 53);
-        cardsPanel.Margin = new System.Windows.Forms.Padding(8, 3, 8, 3);
+        cardsPanel.Dock = DockStyle.Fill;
+        cardsPanel.Location = new Point(3, 78);
+        cardsPanel.Margin = new Padding(3, 1, 3, 0);
         cardsPanel.Name = "cardsPanel";
         cardsPanel.RowCount = 3;
-        cardsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-        cardsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-        cardsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-        cardsPanel.Size = new System.Drawing.Size(498, 440);
+        cardsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
+        cardsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
+        cardsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
+        cardsPanel.Size = new Size(707, 353);
         cardsPanel.TabIndex = 1;
         // 
         // btnFirstTask
         // 
-        btnFirstTask.BackColor = System.Drawing.Color.White;
-        btnFirstTask.Cursor = System.Windows.Forms.Cursors.Hand;
-        btnFirstTask.Dock = System.Windows.Forms.DockStyle.Fill;
-        btnFirstTask.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)((byte)226)), ((int)((byte)232)), ((int)((byte)240)));
-        btnFirstTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        btnFirstTask.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.1111116F);
-        btnFirstTask.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        btnFirstTask.Location = new System.Drawing.Point(0, 0);
-        btnFirstTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+        btnFirstTask.BackColor = Color.White;
+        btnFirstTask.Cursor = Cursors.Hand;
+        btnFirstTask.Dock = DockStyle.Fill;
+        btnFirstTask.FlatAppearance.BorderColor = Color.FromArgb(226, 232, 240);
+        btnFirstTask.FlatStyle = FlatStyle.Flat;
+        btnFirstTask.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        btnFirstTask.ForeColor = Color.FromArgb(31, 41, 55);
+        btnFirstTask.Location = new Point(0, 0);
+        btnFirstTask.Margin = new Padding(0, 0, 1, 1);
         btnFirstTask.Name = "btnFirstTask";
-        btnFirstTask.Padding = new System.Windows.Forms.Padding(9, 0, 4, 0);
-        btnFirstTask.Size = new System.Drawing.Size(246, 143);
+        btnFirstTask.Padding = new Padding(4, 0, 2, 0);
+        btnFirstTask.Size = new Size(316, 116);
         btnFirstTask.TabIndex = 0;
         btnFirstTask.Text = "01   第一个小任务\r\nTextBox + Button + Label + CheckBox 的 5 步练习";
-        btnFirstTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        btnFirstTask.TextAlign = ContentAlignment.MiddleLeft;
         btnFirstTask.UseVisualStyleBackColor = false;
         btnFirstTask.Click += btnFirstTask_Click;
         // 
         // btnSendHistory
         // 
-        btnSendHistory.BackColor = System.Drawing.Color.White;
-        btnSendHistory.Cursor = System.Windows.Forms.Cursors.Hand;
-        btnSendHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-        btnSendHistory.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)((byte)226)), ((int)((byte)232)), ((int)((byte)240)));
-        btnSendHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        btnSendHistory.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.1111116F);
-        btnSendHistory.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        btnSendHistory.Location = new System.Drawing.Point(252, 0);
-        btnSendHistory.Margin = new System.Windows.Forms.Padding(3, 0, 0, 3);
+        btnSendHistory.BackColor = Color.White;
+        btnSendHistory.Cursor = Cursors.Hand;
+        btnSendHistory.Dock = DockStyle.Fill;
+        btnSendHistory.FlatAppearance.BorderColor = Color.FromArgb(226, 232, 240);
+        btnSendHistory.FlatStyle = FlatStyle.Flat;
+        btnSendHistory.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        btnSendHistory.ForeColor = Color.FromArgb(31, 41, 55);
+        btnSendHistory.Location = new Point(318, 0);
+        btnSendHistory.Margin = new Padding(1, 0, 0, 1);
         btnSendHistory.Name = "btnSendHistory";
-        btnSendHistory.Padding = new System.Windows.Forms.Padding(9, 0, 4, 0);
-        btnSendHistory.Size = new System.Drawing.Size(246, 143);
+        btnSendHistory.Padding = new Padding(4, 0, 2, 0);
+        btnSendHistory.Size = new Size(389, 116);
         btnSendHistory.TabIndex = 1;
         btnSendHistory.Text = "04-1   发送历史\r\n最近 10 条 + JSON 持久化 + 双击回填";
-        btnSendHistory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        btnSendHistory.TextAlign = ContentAlignment.MiddleLeft;
         btnSendHistory.UseVisualStyleBackColor = false;
         btnSendHistory.Click += btnSendHistory_Click;
         // 
         // btnAlarmFilter
         // 
-        btnAlarmFilter.BackColor = System.Drawing.Color.White;
-        btnAlarmFilter.Cursor = System.Windows.Forms.Cursors.Hand;
-        btnAlarmFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-        btnAlarmFilter.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)((byte)226)), ((int)((byte)232)), ((int)((byte)240)));
-        btnAlarmFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        btnAlarmFilter.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.1111116F);
-        btnAlarmFilter.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        btnAlarmFilter.Location = new System.Drawing.Point(0, 146);
-        btnAlarmFilter.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+        btnAlarmFilter.BackColor = Color.White;
+        btnAlarmFilter.Cursor = Cursors.Hand;
+        btnAlarmFilter.Dock = DockStyle.Fill;
+        btnAlarmFilter.FlatAppearance.BorderColor = Color.FromArgb(226, 232, 240);
+        btnAlarmFilter.FlatStyle = FlatStyle.Flat;
+        btnAlarmFilter.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        btnAlarmFilter.ForeColor = Color.FromArgb(31, 41, 55);
+        btnAlarmFilter.Location = new Point(0, 117);
+        btnAlarmFilter.Margin = new Padding(0, 0, 1, 1);
         btnAlarmFilter.Name = "btnAlarmFilter";
-        btnAlarmFilter.Padding = new System.Windows.Forms.Padding(9, 0, 4, 0);
-        btnAlarmFilter.Size = new System.Drawing.Size(246, 143);
+        btnAlarmFilter.Padding = new Padding(4, 0, 2, 0);
+        btnAlarmFilter.Size = new Size(316, 116);
         btnAlarmFilter.TabIndex = 2;
         btnAlarmFilter.Text = "04-2   报警筛选\r\n全量数据不变，按状态切换显示子集";
-        btnAlarmFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        btnAlarmFilter.TextAlign = ContentAlignment.MiddleLeft;
         btnAlarmFilter.UseVisualStyleBackColor = false;
         btnAlarmFilter.Click += btnAlarmFilter_Click;
         // 
         // btnTrendHover
         // 
-        btnTrendHover.BackColor = System.Drawing.Color.White;
-        btnTrendHover.Cursor = System.Windows.Forms.Cursors.Hand;
-        btnTrendHover.Dock = System.Windows.Forms.DockStyle.Fill;
-        btnTrendHover.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)((byte)226)), ((int)((byte)232)), ((int)((byte)240)));
-        btnTrendHover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        btnTrendHover.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.1111116F);
-        btnTrendHover.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        btnTrendHover.Location = new System.Drawing.Point(252, 146);
-        btnTrendHover.Margin = new System.Windows.Forms.Padding(3, 0, 0, 3);
+        btnTrendHover.BackColor = Color.White;
+        btnTrendHover.Cursor = Cursors.Hand;
+        btnTrendHover.Dock = DockStyle.Fill;
+        btnTrendHover.FlatAppearance.BorderColor = Color.FromArgb(226, 232, 240);
+        btnTrendHover.FlatStyle = FlatStyle.Flat;
+        btnTrendHover.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        btnTrendHover.ForeColor = Color.FromArgb(31, 41, 55);
+        btnTrendHover.Location = new Point(318, 117);
+        btnTrendHover.Margin = new Padding(1, 0, 0, 1);
         btnTrendHover.Name = "btnTrendHover";
-        btnTrendHover.Padding = new System.Windows.Forms.Padding(9, 0, 4, 0);
-        btnTrendHover.Size = new System.Drawing.Size(246, 143);
+        btnTrendHover.Padding = new Padding(4, 0, 2, 0);
+        btnTrendHover.Size = new Size(389, 116);
         btnTrendHover.TabIndex = 3;
         btnTrendHover.Text = "04-3   曲线悬停\r\n自绘 GDI+ 趋势图 + 十字光标提示";
-        btnTrendHover.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        btnTrendHover.TextAlign = ContentAlignment.MiddleLeft;
         btnTrendHover.UseVisualStyleBackColor = false;
         btnTrendHover.Click += btnTrendHover_Click;
         // 
         // btnVirtualGrid
         // 
-        btnVirtualGrid.BackColor = System.Drawing.Color.White;
-        btnVirtualGrid.Cursor = System.Windows.Forms.Cursors.Hand;
-        btnVirtualGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-        btnVirtualGrid.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)((byte)226)), ((int)((byte)232)), ((int)((byte)240)));
-        btnVirtualGrid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        btnVirtualGrid.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.1111116F);
-        btnVirtualGrid.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        btnVirtualGrid.Location = new System.Drawing.Point(0, 292);
-        btnVirtualGrid.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+        btnVirtualGrid.BackColor = Color.White;
+        btnVirtualGrid.Cursor = Cursors.Hand;
+        btnVirtualGrid.Dock = DockStyle.Fill;
+        btnVirtualGrid.FlatAppearance.BorderColor = Color.FromArgb(226, 232, 240);
+        btnVirtualGrid.FlatStyle = FlatStyle.Flat;
+        btnVirtualGrid.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        btnVirtualGrid.ForeColor = Color.FromArgb(31, 41, 55);
+        btnVirtualGrid.Location = new Point(0, 234);
+        btnVirtualGrid.Margin = new Padding(0, 0, 1, 23);
         btnVirtualGrid.Name = "btnVirtualGrid";
-        btnVirtualGrid.Padding = new System.Windows.Forms.Padding(9, 0, 4, 0);
-        btnVirtualGrid.Size = new System.Drawing.Size(246, 148);
+        btnVirtualGrid.Padding = new Padding(4, 0, 2, 5);
+        btnVirtualGrid.Size = new Size(316, 96);
         btnVirtualGrid.TabIndex = 4;
         btnVirtualGrid.Text = "04-4   虚拟表格\r\nVirtualMode 加载 100,000 行历史数据";
-        btnVirtualGrid.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        btnVirtualGrid.TextAlign = ContentAlignment.MiddleLeft;
         btnVirtualGrid.UseVisualStyleBackColor = false;
         btnVirtualGrid.Click += btnVirtualGrid_Click;
         // 
         // btnTray
         // 
-        btnTray.BackColor = System.Drawing.Color.White;
-        btnTray.Cursor = System.Windows.Forms.Cursors.Hand;
-        btnTray.Dock = System.Windows.Forms.DockStyle.Fill;
-        btnTray.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)((byte)226)), ((int)((byte)232)), ((int)((byte)240)));
-        btnTray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        btnTray.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.1111116F);
-        btnTray.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)31)), ((int)((byte)41)), ((int)((byte)55)));
-        btnTray.Location = new System.Drawing.Point(252, 292);
-        btnTray.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+        btnTray.BackColor = Color.White;
+        btnTray.Cursor = Cursors.Hand;
+        btnTray.Dock = DockStyle.Fill;
+        btnTray.FlatAppearance.BorderColor = Color.FromArgb(226, 232, 240);
+        btnTray.FlatStyle = FlatStyle.Flat;
+        btnTray.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        btnTray.ForeColor = Color.FromArgb(31, 41, 55);
+        btnTray.Location = new Point(318, 234);
+        btnTray.Margin = new Padding(1, 0, 0, 23);
         btnTray.Name = "btnTray";
-        btnTray.Padding = new System.Windows.Forms.Padding(9, 0, 4, 0);
-        btnTray.Size = new System.Drawing.Size(246, 148);
+        btnTray.Padding = new Padding(4, 0, 2, 0);
+        btnTray.Size = new Size(389, 96);
         btnTray.TabIndex = 5;
         btnTray.Text = "04-5   托盘最小化\r\nFormClosing 拦截关闭 + NotifyIcon 恢复";
-        btnTray.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        btnTray.TextAlign = ContentAlignment.MiddleLeft;
         btnTray.UseVisualStyleBackColor = false;
         btnTray.Click += btnTray_Click;
         // 
         // footerLabel
         // 
-        footerLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-        footerLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 4F);
-        footerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)((byte)100)), ((int)((byte)116)), ((int)((byte)139)));
-        footerLabel.Location = new System.Drawing.Point(11, 497);
-        footerLabel.Margin = new System.Windows.Forms.Padding(11, 1, 11, 0);
+        footerLabel.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
+        footerLabel.ForeColor = Color.FromArgb(100, 116, 139);
+        footerLabel.Location = new Point(4, 432);
+        footerLabel.Margin = new Padding(4, 1, 4, 0);
         footerLabel.Name = "footerLabel";
-        footerLabel.Size = new System.Drawing.Size(492, 16);
+        footerLabel.Size = new Size(596, 58);
         footerLabel.TabIndex = 2;
         footerLabel.Text = "设计器查看方法：在解决方案资源管理器中展开 Form，双击 .Designer.cs 或按 F7 / Shift+F7 切换代码与设计视图。";
-        footerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        footerLabel.TextAlign = ContentAlignment.MiddleLeft;
+        footerLabel.Click += footerLabel_Click;
         // 
         // MainForm
         // 
-        AutoScaleDimensions = new System.Drawing.SizeF(5F, 11F);
-        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        BackColor = System.Drawing.Color.FromArgb(((int)((byte)244)), ((int)((byte)246)), ((int)((byte)250)));
-        ClientSize = new System.Drawing.Size(514, 513);
+        AutoScaleDimensions = new SizeF(2F, 5F);
+        AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.FromArgb(244, 246, 250);
+        ClientSize = new Size(713, 493);
         Controls.Add(rootLayout);
-        Font = new System.Drawing.Font("Microsoft YaHei UI", 4.2222223F);
-        Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-        MinimumSize = new System.Drawing.Size(454, 308);
-        StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        Font = new Font("Microsoft YaHei UI", 1.8765434F);
+        Margin = new Padding(1, 1, 1, 1);
+        MinimumSize = new Size(191, 161);
+        Name = "MainForm";
+        StartPosition = FormStartPosition.CenterScreen;
         Text = "WinForms 练习答案 · 原生窗体";
         FormClosing += MainForm_FormClosing;
         Load += MainForm_Load;
