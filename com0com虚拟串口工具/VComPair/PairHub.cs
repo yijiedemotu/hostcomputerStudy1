@@ -17,7 +17,7 @@ namespace VComPair;
 ///   * 本工具自带的两个终端   → VirtualClient.cs
 /// 因此零驱动、零管理员权限、零第三方依赖，装上 .NET 8 就能通讯。
 ///
-/// 握手协议（ASCII 一行，\n 结束）：
+/// 握手协议（UTF-8 一行，\n 结束；中文提示必须 UTF-8，ASCII 会变成 ?）：
 ///   客户端：HELLO|VCOM1|SerialAssistant
 ///   服务端：+OK|VCOM1      或  -ERR|原因
 /// 握手之后的字节全部当作"串口上的裸数据"透明转发，不做任何分包。
