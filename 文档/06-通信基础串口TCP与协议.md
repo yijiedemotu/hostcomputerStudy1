@@ -336,7 +336,8 @@ while (!ct.IsCancellationRequested)
 | TCP/UDP 调试助手 | 模拟服务端/客户端 | 网络调试助手、NetAssist |
 | Wireshark | 抓包看原始字节 | 过滤 `tcp.port == 502` |
 | Modbus Poll / Slave | 专业 Modbus 调试 | 有试用期 |
-| 虚拟串口 | 无硬件时成对虚拟 COM | com0com |
+| 虚拟串口（内核驱动） | 无硬件时成对虚拟 `COM5/COM6` | com0com，教程见 `com0com虚拟串口工具/02`、`03` |
+| 虚拟串口（免驱动） | 免管理员、纯用户态的 `VCOM1/VCOM2` | 本仓库 VComPair 工具，教程见 `com0com虚拟串口工具/06` |
 | `ping` / `Test-NetConnection` | 网络连通性 | `Test-NetConnection 192.168.1.10 -Port 502` |
 | 万用表 | 量 485 差分电压 | A-B 约 2~5V |
 

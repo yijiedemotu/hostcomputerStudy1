@@ -16,8 +16,10 @@ namespace SerialAssistant;
 /// </summary>
 public partial class MainForm : Form
 {
-    // 当前打开的串口；null 表示未打开
-    private SerialPortNative? _port;
+    // 当前打开的串口；null 表示未打开。
+    // 用接口而不是具体类：物理口走 SerialPortNative(Win32)，
+    // 免驱动虚拟口 VCOM1/VCOM2 走 VirtualSerialPort(TCP 回环)，业务代码完全不用改。
+    private ISerialPort? _port;
 
     // 文本模式的编码，默认 UTF-8；国产仪表常需要切到 GB2312
     private Encoding _encoding = new UTF8Encoding(false);
@@ -75,26 +77,33 @@ public partial class MainForm : Form
         SetUiOpen(false);
     }
 
-    /// <summary>刷新串口列表。插拔 USB 转串口后点“刷新”就会重新读注册表。</summary>
+    /// <summary>
+    /// 刷新串口列表。插拔 USB 转串口后点“刷新”就会重新读注册表。
+    /// 列表末尾固定追加 VCOM1 / VCOM2 两个免驱动虚拟口（由 VComPair 工具提供），
+    /// 这样一台没有串口、也没装 com0com 的电脑也能完整练习收发。
+    /// </summary>
     private void RefreshPortList()
     {
-        var current = cboPort.Text;
-        var ports = SerialPortNative.GetPortNames();
+        var current = cboPort.Text.Trim();
+        var physical = SerialPortNative.GetPortNames();
+
+        var ports = new string[physical.Length + VirtualSerialPort.VirtualPortNames.Length];
+        Array.Copy(physical, ports, physical.Length);
+        Array.Copy(VirtualSerialPort.VirtualPortNames, 0, ports,
+            physical.Length, VirtualSerialPort.VirtualPortNames.Length);
 
         cboPort.Items.Clear();
         cboPort.Items.AddRange(ports);
 
-        if (!string.IsNullOrWhiteSpace(current) && !ports.Contains(current))
-            cboPort.Text = current; // 用户手输的端口不在列表里，保留输入
-        else if (ports.Length > 0)
-            cboPort.SelectedIndex = 0; // 默认选第一个
-        else
-            cboPort.Text = "COM1";
+        // 保留当前选择/手输的端口；初始为空时默认给一个免驱动虚拟口
+        cboPort.Text = string.IsNullOrWhiteSpace(current)
+            ? VirtualSerialPort.VirtualPortNames[0]
+            : current;
 
-        // 没检测到串口时给出驱动提示，这是现场最常见的“打不开串口”原因
-        lblTips.Text = ports.Length == 0
-            ? "未检测到串口：检查 USB 转串口驱动（CH340/CP2102/FT232）是否安装"
-            : $"检测到 {ports.Length} 个串口：{string.Join("、", ports)}";
+        // 没检测到物理串口时给出提示，并明确告诉用户还有一条免驱动的路
+        lblTips.Text = physical.Length == 0
+            ? "未检测到物理串口：可选 VCOM1/VCOM2（先启动『虚拟串口对工具 VComPair』），或检查 CH340/CP2102/FT232 驱动"
+            : $"检测到 {physical.Length} 个物理串口：{string.Join("、", physical)}；另可用 VCOM1/VCOM2 虚拟串口";
     }
 
     private void btnRefreshPorts_Click(object? sender, EventArgs e) => RefreshPortList();
@@ -126,14 +135,19 @@ public partial class MainForm : Form
             return;
         }
 
-        var port = new SerialPortNative(settings);
+        // 同一个 ISerialPort 接口，两种实现：
+        //   COMx   → SerialPortNative，走 Win32 CreateFile 打开真实/驱动虚拟串口
+        //   VCOMx  → VirtualSerialPort，走本机 TCP 回环连到 VComPair 工具（零驱动、零管理员权限）
+        ISerialPort port = VirtualSerialPort.IsVirtualPort(settings.PortName)
+            ? new VirtualSerialPort(settings.PortName.Trim().ToUpperInvariant())
+            : new SerialPortNative(settings);
         try
         {
             port.Open();
         }
         catch (Exception ex)
         {
-            port.Dispose(); // 打开失败也要释放句柄
+            port.Dispose(); // 打开失败也要释放句柄/连接
             ShowError("打开串口失败", ex);
             return;
         }
@@ -144,7 +158,9 @@ public partial class MainForm : Form
         SetUiOpen(true);
         StartReceiveLoop(); // 启动后台收数
         Log.Info($"打开串口 {settings}，超时 {settings.ReadTimeoutMs}ms");
-        lblTips.Text = $"已打开 {settings}，等待数据…";
+        lblTips.Text = VirtualSerialPort.IsVirtualPort(settings.PortName)
+            ? $"已打开虚拟串口 {settings.PortName}（参数仅作显示，虚拟链路不限制波特率），等待数据…"
+            : $"已打开 {settings}，等待数据…";
     }
 
     /// <summary>

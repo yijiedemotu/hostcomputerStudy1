@@ -9,9 +9,10 @@
 
 | 内容 | 说明 |
 |---|---|
-| **21 篇文档** | 岗位地图、环境、C#、工程化、WinForms、WPF、通信、Modbus、PLC/OPC UA、数据库、多线程、架构、部署、现场调试、项目实战、求职、12 周计划、4 个附录 |
+| **24 篇文档** | 岗位地图、环境、C#、工程化、WinForms、WPF、通信、Modbus、PLC/OPC UA、数据库、多线程、架构、部署、现场调试、项目实战、求职、12 周计划、4 个附录，外加三个项目的独立完整教程（17/18/19） |
 | **3 个可运行项目** | 串口调试助手、Modbus 采集监控上位机、WPF 监控看板 |
-| **33 道课后练习答案** | 第 01/02/04/05/07/10 章练习，集中为 Console、WinForms、WPF 三个可运行项目 |
+| **1 套虚拟串口方案** | `com0com虚拟串口工具/`：免驱动 VComPair 工具（零管理员权限）+ com0com 官方驱动从下载、装驱动、建端口对到排错的完整教程 |
+| **33 道课后练习答案** | 第 01/02/04/05/07/10 章练习，独立放在 `练习题答案/` 解决方案（Console、WinForms、WPF 三个可运行项目） |
 | **1 个协议自检工具** | CRC / 字序 / RTU 组帧 / TCP 联调 / 采集引擎，5 组自动化测试 |
 | **1 个 Modbus 从站模拟器** | Python 标准库实现，没有 PLC 也能完整联调 |
 | **求职材料** | 简历模板、项目描述范例、100 道面试题速答 + 背诵题库、12 周打卡表 |
@@ -25,23 +26,26 @@
 ```powershell
 cd 项目
 
-# ① 启动 Modbus 从站模拟器（新开一个终端，保持运行）
+# ① 虚拟串口对工具（新开一个终端，保持运行；窗口里点「① 启动服务」）
+dotnet run --project ..\com0com虚拟串口工具\VComPair
+
+# ② 启动 Modbus 从站模拟器（再新开一个终端，保持运行）
 python tools\modbus_slave_sim.py
 
-# ② 协议自检：CRC、字序、RTU、TCP、采集引擎
+# ③ 协议自检：CRC、字序、RTU、TCP、采集引擎
 dotnet run --project tools\SelfCheck -- 502
 
-# ③ Modbus 采集监控上位机（点“▶ 启动采集”）
+# ④ 串口调试助手：端口选 VCOM1 → 打开串口 → 和工具的 VCOM2 面板互发
+dotnet run --project src\SerialAssistant
+
+# ⑤ Modbus 采集监控上位机（点「▶ 启动采集」）
 dotnet run --project src\ModbusMonitor
 
-# ④ WPF 监控看板
+# ⑥ WPF 监控看板
 dotnet run --project src\ScadaDashboard
-
-# ⑤ 串口调试助手（无硬件也能看界面）
-dotnet run --project src\SerialAssistant
 ```
 
-预期：模拟器打印监听信息；SelfCheck 全部 ✔；上位机表格数值跳动、曲线开始绘制。
+预期：模拟器打印监听信息；SelfCheck 全部 ✔；串口助手能完整收发；上位机表格数值跳动、曲线开始绘制。
 
 > 502 端口被占用时：`python tools\modbus_slave_sim.py --port 1502`，
 > 然后把 `src/ModbusMonitor/config/appsettings.json` 和 WPF 项目里的端口改成 1502。
@@ -53,41 +57,32 @@ dotnet run --project src\SerialAssistant
 ```
 上位机学习大全/
 ├── README.md                      ← 你在这里
+├── 学习资源清单.md
 ├── 文档/
-│   ├── 00-上位机岗位地图与学习路线.md
-│   ├── 01-环境准备与第一个程序.md
-│   ├── 02-CSharp核心语法.md
-│   ├── 03-工程化分层Git日志与测试.md
-│   ├── 04-WinForms界面开发实战.md
-│   ├── 05-WPF与MVVM.md
-│   ├── 06-通信基础串口TCP与协议.md
-│   ├── 07-Modbus完全指南.md
-│   ├── 08-PLC通信S7与OPCUA.md
-│   ├── 09-数据存储CSV与数据库.md
-│   ├── 10-多线程与定时采集.md
-│   ├── 11-架构设计分层状态机报警权限.md
-│   ├── 12-日志异常配置与部署.md
-│   ├── 13-现场调试与问题排查手册.md
-│   ├── 14-项目实战三个项目讲解.md
-│   ├── 15-求职简历面试与职业路线.md
-│   ├── 16-12周学习计划与打卡表.md
-│   ├── 附录A-常用代码片段.md
-│   ├── 附录B-协议与寄存器速查表.md
-│   ├── 附录C-面试100题速答.md
-│   └── 附录D-面试100题背诵题库.md
+│   ├── 00-上位机岗位地图与学习路线.md  ~  16-12周学习计划与打卡表.md
+│   ├── 17-项目一串口调试助手完全教程.md        ← 新增
+│   ├── 18-项目二Modbus采集监控完全教程.md      ← 新增
+│   ├── 19-项目三WPF监控看板完全教程.md         ← 新增
+│   └── 附录A ~ 附录D
 ├── 项目/
 │   ├── UpperComputer.Learning.slnx
+│   ├── README.md
 │   ├── src/
-│   │   ├── Industrial.Core/       协议栈 + 模型 + 存储 + 日志（类库）
+│   │   ├── Industrial.Core/       协议栈 + 模型 + 存储 + 日志（三个项目共用的类库）
 │   │   ├── SerialAssistant/       项目 1：串口调试助手（WinForms）
 │   │   ├── ModbusMonitor/         项目 2：采集监控上位机（WinForms）
-│   │   ├── ScadaDashboard/        项目 3：监控看板（WPF + MVVM）
-│   │   └── Exercises/             课后练习答案：Console（02/07/10）、WinForms（01/04）、WPF（05）
+│   │   └── ScadaDashboard/        项目 3：监控看板（WPF + MVVM）
 │   └── tools/
 │       ├── SelfCheck/             协议自检（控制台）
 │       └── modbus_slave_sim.py    Modbus TCP 从站模拟器
-└── 资料/
-    └── 学习资源清单.md
+├── 练习题答案/                    课后练习答案（独立解决方案，不要和主项目混在一起）
+│   ├── 练习题答案.sln / .slnx
+│   └── src/Answers.Console / Answers.WinForms / Answers.Wpf
+└── com0com虚拟串口工具/           ← 新增：虚拟串口工具 + 完整教程
+    ├── README.md                 导航与 5 分钟上手
+    ├── 01 ~ 06 号教程            com0com 原理 / 安装 / 建端口对 / 联调 / 排错 / 免驱动工具
+    ├── 一键启动工具.bat
+    └── VComPair/                 免驱动虚拟串口对工具源码（C# / WinForms）
 ```
 
 ---
@@ -101,6 +96,13 @@ dotnet run --project src\SerialAssistant
 | WPF 看板 | XAML、绑定、ICommand、DataTemplate、OnRender 自绘 | 第 9 周 | `dotnet run --project src\ScadaDashboard` |
 
 每个项目目录下都有独立 `README.md`，写明了功能、关键文件、扩展任务。
+另外为三个项目各补了一篇**完整教程**（从运行、界面操作、代码逐段讲解到排错与扩展）：
+
+- [`文档/17-项目一串口调试助手完全教程.md`](文档/17-项目一串口调试助手完全教程.md)
+- [`文档/18-项目二Modbus采集监控完全教程.md`](文档/18-项目二Modbus采集监控完全教程.md)
+- [`文档/19-项目三WPF监控看板完全教程.md`](文档/19-项目三WPF监控看板完全教程.md)
+
+总览性质的讲解见 `文档/14-项目实战三个项目讲解.md`。
 
 ---
 
@@ -124,9 +126,11 @@ dotnet run --project src\SerialAssistant
 
 本仓库交付前实际执行过：
 
-- ✅ 5 个主项目全部编译通过（`dotnet build`，0 错误）
-- ✅ 33 道课后练习答案编译通过；Console 全题实跑，WinForms / WPF 界面逐页启动验证
+- ✅ 3 个主项目 + 共用类库 + SelfCheck 全部编译通过（`dotnet build`，0 错误）
+- ✅ 独立解决方案 `练习题答案/` 中 33 道课后练习答案编译通过；Console 全题实跑，WinForms / WPF 界面逐页启动验证
 - ✅ `SelfCheck` 离线测试通过：CRC16 标准值 `CDC5`、四种字序往返、RTU 内存回环读/写/线圈
+- ✅ 免驱动虚拟串口端到端实测：VCOM1 ↔ VCOM2 双向收发、超时返回 0、端口独占、回环模式、离线缓存补发、中文标签全部通过
+- ✅ 启动 Python 模拟器后 TCP 联调通过：读站号 1/2、写设定值回读、非法地址返回异常码 `02`
 - ✅ 启动 Python 模拟器后 TCP 联调通过：读站号 1/2、写设定值回读、非法地址返回异常码 `02`
 - ✅ 采集引擎端到端：3 秒内多个快照、质量 Good、断线时上报 Bad 且不崩溃
 - ⚠️ GUI 窗口需要在**交互式桌面**中运行；练习答案界面已实际启动并截图验证，完整项目界面请在本机 `dotnet run` 查看
@@ -148,9 +152,9 @@ dotnet run --project src\SerialAssistant
 | SDK | .NET 8 SDK（含 WindowsDesktop 运行时） |
 | 编辑器 | Visual Studio 2022（.NET 桌面开发）或 VS Code + C# 扩展 |
 | Python | 3.9+，仅模拟器需要（无第三方包） |
-| 硬件 | 无。真机联调时准备 USB 转 RS485 即可 |
+| 硬件 | 无。虚拟串口用本仓库自带的 VComPair 工具即可；真机联调时准备 USB 转 RS485 |
 
-本项目**刻意不使用 NuGet 包**（本机离线环境无法还原），串口用 Win32 API 实现、图表用 GDI+/DrawingContext 手写。
+本项目**刻意不使用 NuGet 包**（本机离线环境无法还原），物理串口用 Win32 API 实现、免驱动虚拟串口用 TCP 回环、图表用 GDI+/DrawingContext 手写。
 这不是“最佳工程实践”，但能让你**在任何一台没网的工控机上编译通过**，也更能看懂底层。
 
 ---
@@ -175,7 +179,10 @@ dotnet run --project src\SerialAssistant
 `dotnet build src\Industrial.Core\Industrial.Core.csproj -p:UseSharedCompilation=false`
 
 **Q：没有串口，串口助手能测吗？**
-能看界面、能测 HEX 解析；收发需要真实串口或 com0com 虚拟串口对。Modbus 部分用 TCP 模拟器即可完整练习。
+能，而且不需要装 com0com。先跑 `dotnet run --project com0com虚拟串口工具/VComPair`，在窗口点「① 启动服务」；
+再打开串口助手，端口下拉框选 **VCOM1** 点「打开串口」，用工具里的 VCOM2 面板互发即可。
+完整步骤见 [`com0com虚拟串口工具/README.md`](com0com虚拟串口工具/README.md)。
+如果用的是第三方、只认 `COM5/COM6` 这类名字的调试软件，才需要真正的内核驱动 com0com，见同一文件夹的 02 / 03 号教程。
 
 **Q：为什么不用 NModbus / LiveCharts？**
 学习阶段手写一遍协议和图形，面试时能讲清原理；生产项目该用库就用库，文档里给了选型建议。

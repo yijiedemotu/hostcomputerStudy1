@@ -36,7 +36,18 @@ dotnet run --project tools/SelfCheck -- 502     # 加 TCP 联调与采集引擎�
 
 退出码 0 表示全部通过。
 
-## 虚拟串口（可选）
+## 虚拟串口（推荐：免驱动方案）
 
-串口助手没有硬件时，可安装 com0com 创建一对虚拟串口（COM5 ↔ COM6），
-一端发、另一端收，用来验证 HEX 收发和定时发送。
+串口助手没有硬件时，**优先用本仓库自带的 VComPair 工具**，不用装驱动、不用管理员权限：
+
+```powershell
+cd ..\..\com0com虚拟串口工具
+dotnet run --project VComPair        # 窗口里点「① 启动服务」
+```
+
+然后在串口助手里把端口选 **VCOM1**，工具里的 VCOM2 面板作为对端，双端即可互发。
+完整教程：[`../../com0com虚拟串口工具/06-VComPair免驱动工具完全教程.md`](../../com0com虚拟串口工具/06-VComPair免驱动工具完全教程.md)。
+
+> 如果用的是第三方调试软件、只认设备管理器里的 `COM5/COM6`，才需要安装 com0com 内核驱动
+> 创建一对 COM5 ↔ COM6。下载、安装、创建端口对、排错与卸载见
+> [`../../com0com虚拟串口工具/README.md`](../../com0com虚拟串口工具/README.md) 的 02 / 03 / 05 号教程。

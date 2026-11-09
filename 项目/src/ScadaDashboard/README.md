@@ -18,7 +18,10 @@ python tools\modbus_slave_sim.py      # 终端 1
 dotnet run --project src\ScadaDashboard  # 终端 2
 ```
 
-点“▶ 启动采集”。
+点"▶ 启动采集"。
+
+> 完整教程（XAML 绑定逐段讲解、MVVM 数据流、主题与自绘、排错）：
+> [`../../../文档/19-项目三WPF监控看板完全教程.md`](../../../文档/19-项目三WPF监控看板完全教程.md)
 
 ## MVVM 结构
 

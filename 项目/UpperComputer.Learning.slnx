@@ -5,11 +5,6 @@
     <Project Path="src/ScadaDashboard/ScadaDashboard.csproj" />
     <Project Path="src/SerialAssistant/SerialAssistant.csproj" />
   </Folder>
-  <Folder Name="/src/Exercises/">
-    <Project Path="src/Exercises/Exercises.ConsoleApp/Exercises.ConsoleApp.csproj" />
-    <Project Path="src/Exercises/Exercises.WinForms/Exercises.WinForms.csproj" />
-    <Project Path="src/Exercises/Exercises.Wpf/Exercises.Wpf.csproj" />
-  </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/SelfCheck/SelfCheck.csproj" />
   </Folder>

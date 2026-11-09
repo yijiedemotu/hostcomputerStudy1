@@ -169,7 +169,8 @@
 | Wireshark | 抓包 |
 | Modbus Poll / Slave | Modbus 主/从模拟 |
 | UaExpert | OPC UA 客户端 |
-| com0com | 虚拟串口对 |
+| com0com | 内核级虚拟串口对（COM5↔COM6），教程：`com0com虚拟串口工具/02`、`03` |
+| VComPair | 本仓库免驱动虚拟串口对（VCOM1↔VCOM2），教程：`com0com虚拟串口工具/06` |
 | Process Explorer | 进程/线程/句柄 |
 | `dotnet-counters` | .NET 运行时指标 |
 | `dotnet-dump` | 崩溃/死锁转储 |
